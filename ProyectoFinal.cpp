@@ -14,9 +14,9 @@ struct persona {
 	char apeP[50];
 	char apeM[50];
 	char matricula[50];
-	int cal1;
-	int cal2;
-	int cal3;
+	double cal1;
+	double cal2;
+	double cal3;
 	string calle;
 	string numCasa;
 	string colonia;
@@ -26,7 +26,7 @@ struct persona {
 
 void nuevoAlumno();
 void mostrar();
-void busqueda();
+/*void busqueda();*/
 void mostrarBusqueda();
 /*void eliminar();*/
 
@@ -57,8 +57,8 @@ int main()
 				mostrarBusqueda();
 				busqueda();
 				break;*/
-				/*case 4:eliminar();*/
-			break;
+				/*case 4:eliminar();
+					break;*/
 
 		}
 	} while (a != 5);
@@ -133,6 +133,7 @@ void mostrar()
 		alumnos >> contacto.cal1;
 		alumnos >> contacto.cal2;
 		alumnos >> contacto.cal3;
+		cout << "\nCalificaciones: cal 1=" << contacto.cal1 << "  cal 2=" << contacto.cal2 << "  cal 3=" << contacto.cal3;
 		promedio = contacto.cal1 + contacto.cal2 + contacto.cal3;
 		promedio = promedio / 3;
 		cout << "\nPromedio: " << promedio;
@@ -673,7 +674,7 @@ void nuevoAlumno()
 			} while (z != 0);
 
 
-			alumnos << contacto.nombre << "  " << contacto.apeP << "  " << contacto.apeM << "  " << contacto.numeroC << "  " << contacto.correo << "  " << contacto.matricula << "  " << contacto.calle << " " << contacto.numCasa << " " << contacto.colonia << "." << contacto.cal1 << " " << contacto.cal2 << " " << contacto.cal3 << "\n\n";
+			alumnos << contacto.nombre << "  " << contacto.apeP << "  " << contacto.apeM << "  " << contacto.numeroC << "  " << contacto.correo << "  " << contacto.matricula << "  " << contacto.calle << " " << contacto.numCasa << " " << contacto.colonia << "." << " " << contacto.cal1 << " " << contacto.cal2 << " " << contacto.cal3 << "\n\n";
 			cout << "\n\n desea ingresar otro contacto a la alumnos.? ";
 			cout << "\n\n 1=si, 2=no \n" << endl;
 			if (dec != 1)
