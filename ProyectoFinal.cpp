@@ -1,26 +1,34 @@
 #include<iostream>
-#include<fstream>
-#include<stdio.h>
-#include<ctype.h>
-#include<string.h>
-#include<Windows.h>
+#include<fstream>//creacion y escritura de archivos
+#include<stdio.h> //los get_s y manipulacion de archivos
+#include<ctype.h>//validar caracteres
+#include<string> //manipulacion de caracteres
+#include<Windows.h>//USar comando Sleep
 using namespace std;
 
 struct persona {
 
-	char nombre[25];
-	char apellido[25];
-	char numeroC[11];
+	string nombre;
+	char numeroC[50];
 	char correo[50];
-	int cali;
-}alumno;
+	char apeP[50];
+	char apeM[50];
+	char matricula[50];
+	int cal1;
+	int cal2;
+	int cal3;
+	string calle;
+	string numCasa;
+	string colonia;
+
+}contacto;
 
 
 void nuevoAlumno();
 void mostrar();
-void mostrarEl();
 void busqueda();
-void eliminar();
+void mostrarBusqueda();
+/*void eliminar();*/
 
 int main()
 {
@@ -44,12 +52,12 @@ int main()
 			break;
 		case 2:mostrar();
 			break;
-		case 3:
-			busqueda();
-			break;
-		case 4:
-			mostrarEl();
-			eliminar();
+			/*case 3:
+				system("cls");
+				mostrarBusqueda();
+				busqueda();
+				break;*/
+				/*case 4:eliminar();*/
 			break;
 
 		}
@@ -59,37 +67,91 @@ int main()
 void mostrar()
 {
 	int i = 0;
+	int x = 1, vcolonia = 0;
 	system("cls");
 	cout << "\n";
 	ifstream alumnos;
 	alumnos.open("alumnos.txt", ios::out | ios::in);
-	cout << "alumnos" << endl;
+	cout << "Contactos" << endl;
 	cout << "_______________________" << endl;
-	alumnos >> alumno.nombre;
+	alumnos >> contacto.nombre;
 	while (!alumnos.eof())
 	{
-		alumnos >> alumno.apellido;
-		alumnos >> alumno.numeroC;
-		alumnos >> alumno.correo;
-		cout << "Nombre: " << alumno.nombre;
-		cout << " " << alumno.apellido << endl;
-		cout << "Numero: " << alumno.numeroC << endl;
-		cout << "Correo: " << alumno.correo << endl;
-		alumnos >> alumno.nombre;
-		cout << "_______________________" << endl;
+		x = 1;
+		cout << "Nombre: " << contacto.nombre;
+		alumnos >> contacto.nombre;
+		alumnos >> contacto.apeP;
+		alumnos >> contacto.apeM;
+		alumnos >> contacto.numeroC;
+		alumnos >> contacto.correo;
+		alumnos >> contacto.matricula;
+
+		cout << " " << contacto.nombre;
+		cout << " " << contacto.apeP << " " << contacto.apeM << endl;
+		cout << "Numero: " << contacto.numeroC << endl;
+		cout << "Correo: " << contacto.correo << endl;
+		cout << "Matricula: " << contacto.matricula << endl;
+		cout << "Dirreccion: ";
+		do
+		{
+			alumnos >> contacto.calle;
+			cout << contacto.calle << " ";
+			i = 0, vcolonia = 0;
+
+
+
+			while (contacto.calle[i])
+			{
+				if ((contacto.calle[i]) == ' ')
+				{
+
+
+				}
+				else
+				{
+					i++;
+
+				}
+
+				if ((contacto.calle[i]) == '.')
+				{
+					x = 0;
+				}
+
+				if (isdigit(contacto.calle[i]))
+				{
+					vcolonia = 1;
+				}
+			}
+			if (vcolonia != 0)
+			{
+				cout << ", Colonia ";
+			}
+
+		} while (x != 0);
+		int promedio;
+		alumnos >> contacto.cal1;
+		alumnos >> contacto.cal2;
+		alumnos >> contacto.cal3;
+		promedio = contacto.cal1 + contacto.cal2 + contacto.cal3;
+		promedio = promedio / 3;
+		cout << "\nPromedio: " << promedio;
+
+		alumnos >> contacto.nombre;
+		cout << "\n_______________________" << endl;
 	}
 	alumnos.close();
 	system("pause");
 
 }
-
+/*
 void busqueda()
 {
-	int i = 0, elije, z = 0, log, x, y;
-	char auxNombre[25], auxN[25];
-	while (auxNombre[24])
+	int i = 0, elije, z = 0, log, x, vcolonia = 0;
+	char auxMat[25], auxN[25];
+	while (auxMat[24])
 	{
-		auxNombre[i] = '\0';
+		auxMat[i] = '\0';
 		i++;
 	}
 	i = 0;
@@ -99,20 +161,20 @@ void busqueda()
 		i++;
 	}
 	i = 0;
-	system("cls");
+
 	cout << "\n";
 	ofstream aux;
 	ifstream alumnos;
 	aux.open("alumnos.txt", ios::out);
 	alumnos.open("alumnos.txt", ios::in);
 
-	cout << "\nSi no te sabes el nombre revisa la lista de alumnos.\n Ingrese nombre que desea buscar: " << endl;
-	cin >> auxNombre;
-	alumnos >> alumno.nombre;
-	log = strlen(alumno.nombre);
-	while (alumno.nombre[i])
+	cout << "\n Ingrese matricula que desea buscar: " << endl;
+	cin >> auxMat;
+	alumnos >> contacto.matricula;
+	log = strlen(contacto.matricula);
+	while (contacto.matricula[i])
 	{
-		auxN[i] = alumno.nombre[i];
+		auxN[i] = contacto.nombre[i];
 		i++;
 	}
 	i = 0;
@@ -120,13 +182,67 @@ void busqueda()
 
 	while (!alumnos.eof())
 	{
-		alumnos >> alumno.apellido;
-		alumnos >> alumno.numeroC;
-		alumnos >> alumno.correo;
-		while (alumno.nombre[i])
+		x = 1;
+		cout << "Nombre: " << contacto.nombre;
+		alumnos >> contacto.nombre;
+		alumnos >> contacto.apeP;
+		alumnos >> contacto.apeM;
+		alumnos >> contacto.numeroC;
+		alumnos >> contacto.correo;
+		alumnos >> contacto.matricula;
+
+		cout << " " << contacto.nombre;
+		cout << " " << contacto.apeP << " " << contacto.apeM << endl;
+		cout << "Numero: " << contacto.numeroC << endl;
+		cout << "Correo: " << contacto.correo << endl;
+		cout << "Matricula: " << contacto.matricula << endl;
+		cout << "Dirreccion: ";
+		do
+		{
+			alumnos >> contacto.calle;
+			cout << contacto.calle << " ";
+			i = 0, vcolonia = 0;
+
+
+
+			while (contacto.calle[i])
+			{
+				if ((contacto.calle[i]) == ' ')
+				{
+
+
+				}
+				else
+				{
+					i++;
+
+				}
+
+				if ((contacto.calle[i]) == '.')
+				{
+					x = 0;
+				}
+
+				if (isdigit(contacto.calle[i]))
+				{
+					vcolonia = 1;
+				}
+			}
+			if (vcolonia != 0)
+			{
+				cout << ", Colonia ";
+			}
+
+
+		} while (x != 0);
+		alumnos >> contacto.nombre;
+		cout << "\n_______________________" << endl;
+
+
+		while (contacto.matricula[i])
 		{
 
-			if (auxNombre[i] == auxN[i])
+			if (auxMat[i] == auxN[i])
 			{
 				z++;
 			}
@@ -135,117 +251,32 @@ void busqueda()
 		if (z == log)
 		{
 			do {
-				system("cls");
-				cout << "Nombre: " << alumno.nombre;
-				cout << " " << alumno.apellido << endl;
-				cout << "Numero: " << alumno.numeroC << endl;
-				cout << "Correo: " << alumno.correo << endl;
-				cout << "_______________________" << endl;
-				cout << "\n\n¿Desea editar el numero o correo de este alumno?" << endl;
+
+				cout << "\n\n¿Desea editar este alumno?" << endl;
 				cout << "  1)si" << endl;
 				cout << "  2)no" << endl;
 				cin >> elije;
-				if (elije == 1) {
-					do {
-						cout << "\nIngrese Nuevo Numero: ";
-						x = 0;
-						z = 0;
+				if (elije == 1)
+				{
 
-						cin >> alumno.numeroC;
+						void nuevoAlumno();
 
-						while (alumno.numeroC[x])
-						{
-							if (!isdigit(alumno.numeroC[x]))
-							{
-
-								z = 1;
-							}
-							x++;
-						}
-
-
-						log = strlen(alumno.numeroC);
-						if (log < 8 || log > 11)
-						{
-							cout << "Verifica que tu numero este correcto" << endl;
-							cin >> alumno.numeroC;
-							z = z + 1;
-						}
-
-					} while (z != 0);
-					do
-					{
-
-						i = 0; y = 0;
-						cout << "\nIngrese Nuevo Correo: ";
-						cin >> alumno.correo;
-						log = strlen(alumno.correo);
-						while (alumno.correo[i])
-						{
-							if ((alumno.correo[i]) == ('@')) {
-								y = 1;
-							}
-							i++;
-
-						}
-						if (y != 0)
-						{
-							i = 0;
-							_strrev(alumno.correo);
-
-
-							while (alumno.correo[i])
-							{
-								if ((alumno.correo[i]) == ('m'))
-								{
-									i++;
-									if ((alumno.correo[i]) == ('o'))
-									{
-										i++;
-										if ((alumno.correo[i]) == ('c'))
-										{
-											i++;
-											if ((alumno.correo[i]) == ('.'))
-											{
-												y = 3;
-											}
-											i = log;
-										}
-										i = log;
-									}
-									i = log;
-								}
-								else {
-									cout << "Error, Debe contener '@' y ''.com''\n";
-									Sleep(2000);
-								}
-								i = log;
-
-							}
-							_strrev(alumno.correo);
-						}
-						else {
-							cout << "Error, Debe contener '@' y ''.com''\n";
-							Sleep(2000);
-						}
-					} while (y != 3);
 				}
-
 			} while (elije != 2);
 		}
 		i = 0;
-		aux << alumno.nombre << " " << alumno.apellido << " " << alumno.numeroC << " " << alumno.correo << endl;
+		aux << contacto.nombre << "  " << contacto.apeP << "  " << contacto.apeM << "  " << contacto.numeroC << "  " << contacto.correo << "  " << contacto.matricula << "  " << contacto.calle << " " << contacto.numCasa << " " << contacto.colonia << "." << "\n\n";
 		while (auxN[i])
 		{
 			auxN[i] = '\0';
 			i++;
 		}
 		i = 0, z = 0;
-		alumnos >> alumno.nombre;
-		log = strlen(alumno.nombre);
-		while (alumno.nombre[i])
+		alumnos >> contacto.matricula;
+		log = strlen(contacto.matricula);
+		while (contacto.matricula[i])
 		{
-			auxN[i] = alumno.nombre[i];
+			auxN[i] = contacto.matricula[i];
 			i++;
 		}
 		i = 0;
@@ -257,42 +288,18 @@ void busqueda()
 	aux.close();
 	remove("alumnos.txt");
 	rename("Auxalumnos.txt", "alumnos.txt");
-	cout << "alumnos Guardados.\n" << endl;
+	cout << "Contactos Guardados.\n" << endl;
 	system("pause");
 
-}
-void mostrarEl()
-{
-	int i = 0;
-	system("cls");
-	cout << "\n";
-	ifstream alumnos;
-	alumnos.open("alumnos.txt", ios::out | ios::in);
-	cout << "alumnos" << endl;
-	cout << "_______________________" << endl;
-	alumnos >> alumno.nombre;
-	while (!alumnos.eof())
-	{
-		alumnos >> alumno.apellido;
-		alumnos >> alumno.numeroC;
-		alumnos >> alumno.correo;
-		cout << "Nombre: " << alumno.nombre;
-		cout << " " << alumno.apellido << endl;
-		cout << "Numero: " << alumno.numeroC << endl;
-		cout << "Correo: " << alumno.correo << endl;
-		alumnos >> alumno.nombre;
-		cout << "_______________________" << endl;
-	}
-	alumnos.close();
-
-}
+}*/
+/*
 void eliminar()
 {
 	int i = 0, elije, z = 0, log, x, y;
-	char auxNombre[25], auxN[25];
-	while (auxNombre[24])
+	char auxMat[25], auxN[25];
+	while (auxMat[24])
 	{
-		auxNombre[i] = '\0';
+		auxMat[i] = '\0';
 		i++;
 	}
 	i = 0;
@@ -302,6 +309,7 @@ void eliminar()
 		i++;
 	}
 	i = 0;
+	system("cls");
 	cout << "\n";
 	ofstream aux;
 	ifstream alumnos;
@@ -309,12 +317,12 @@ void eliminar()
 	alumnos.open("alumnos.txt", ios::in);
 
 	cout << "\n Ingrese nombre que desea buscar: " << endl;
-	cin >> auxNombre;
-	alumnos >> alumno.nombre;
-	log = strlen(alumno.nombre);
-	while (alumno.nombre[i])
+	cin >> auxMat;
+	alumnos >> contacto.nombre;
+	log = strlen(contacto.nombre);
+	while (contacto.nombre[i])
 	{
-		auxN[i] = alumno.nombre[i];
+		auxN[i] = contacto.nombre[i];
 		i++;
 	}
 	i = 0;
@@ -322,13 +330,13 @@ void eliminar()
 
 	while (!alumnos.eof())
 	{
-		alumnos >> alumno.apellido;
-		alumnos >> alumno.numeroC;
-		alumnos >> alumno.correo;
-		while (alumno.nombre[i])
+		alumnos >> contacto.apellido;
+		alumnos >> contacto.numeroC;
+		alumnos >> contacto.correo;
+		while (contacto.nombre[i])
 		{
 
-			if (auxNombre[i] == auxN[i])
+			if (auxMat[i] == auxN[i])
 			{
 				z++;
 			}
@@ -338,12 +346,12 @@ void eliminar()
 		{
 
 			system("cls");
-			cout << "Nombre: " << alumno.nombre;
-			cout << " " << alumno.apellido << endl;
-			cout << "Numero: " << alumno.numeroC << endl;
-			cout << "Correo: " << alumno.correo << endl;
+			cout << "Nombre: " << contacto.nombre;
+			cout << " " << contacto.apellido << endl;
+			cout << "Numero: " << contacto.numeroC << endl;
+			cout << "Correo: " << contacto.correo << endl;
 			cout << "_______________________" << endl;
-			cout << "\n\n¿Desea ELIMINAR este alumno?" << endl;
+			cout << "\n\n¿Desea ELIMINAR este contacto?" << endl;
 			cout << "  1)si" << endl;
 			cout << "  2)no" << endl;
 			cin >> elije;
@@ -354,7 +362,7 @@ void eliminar()
 		i = 0;
 		if (elije != 1)
 		{
-			aux << alumno.nombre << " " << alumno.apellido << " " << alumno.numeroC << " " << alumno.correo << endl;
+			aux << contacto.nombre << " " << contacto.apellido << " " << contacto.numeroC << " " << contacto.correo << endl;
 		}
 
 		while (auxN[i])
@@ -363,11 +371,11 @@ void eliminar()
 			i++;
 		}
 		i = 0, z = 0;
-		alumnos >> alumno.nombre;
-		log = strlen(alumno.nombre);
-		while (alumno.nombre[i])
+		alumnos >> contacto.nombre;
+		log = strlen(contacto.nombre);
+		while (contacto.nombre[i])
 		{
-			auxN[i] = alumno.nombre[i];
+			auxN[i] = contacto.nombre[i];
 			i++;
 		}
 		i = 0;
@@ -383,155 +391,176 @@ void eliminar()
 	cout << "Eliminado.\n" << endl;
 	system("pause");
 
-}
+}*/
 
 void nuevoAlumno()
 {
-	gets_s(alumno.nombre);
-	int x = 0, i = 0, z = 0, log = 0, auxi = 0, y = 0;
-	int dec = 0, space = 0;
+
+	int x, i = 0, z, log, auxi, y;
+	int dec = 1;
 	string telefono;
 	system("cls");
 	ofstream alumnos;
-	ifstream consulta;
-
 	alumnos.open("alumnos.txt", ios::out | ios::app);
-	consulta.open("alumnos.txt", ios::in);
-	if (alumnos.is_open() && consulta.is_open())
+	if (alumnos.fail())
 	{
-		do {
+		cout << "Error al abrir el archivo";
+		system("pause");
+	}
+	else
+	{
+		getline(cin, contacto.nombre);
+		do
+		{
 
 
 			do {
 				system("cls");
-				x = 0, i = 0, auxi = 0, z = 0;
-				space = 0;
-				if (dec != 0)
-				{
-					x = 1;
-					dec = 0;
-				}
-				do
-				{
-					log = 0;
-					system("cls");
-					cout << "\nIngrese Nombre del alumno: ";
-					fflush(stdin);
-					gets_s(alumno.nombre);
-					log = strlen(alumno.nombre);
-					if (!isalpha(alumno.nombre[i]))
-					{
-						log = 0;
-					}
-				} while (log == 0);
+				cout << "Nombres: " << endl;
 
-				while (alumno.nombre[i])
+				getline(cin, contacto.nombre);
+
+				x = 0, i = 0, auxi = 0;
+				while (contacto.nombre[i])
 				{
 
-					if (!isalpha(alumno.nombre[i]))
+					if (!isalpha(contacto.nombre[i]))
 					{
-						if (!iswspace(alumno.nombre[i]))
+						if (!iswspace(contacto.nombre[i]))
 						{
-
 							auxi = i;
-							i = log - 1;
-							x = 1;
-						}
-						else
-						{
-							while (alumno.nombre[i])
-							{
-								if (!isalpha(alumno.nombre[i]))
-								{
-									if (!iswspace(alumno.nombre[i]))
-									{
-										auxi = i;
-										i = log;
-										x = 1;
-									}
-									else
-									{
-										alumno.apellido[z] = alumno.nombre[i];
-										z++;
-										i++;
-										space++;
-										if (space > 1)
-										{
-											auxi = i;
-											i = log;
-											x = 1;
-										}
-									}
-								}
-								else
-								{
-									alumno.apellido[z] = alumno.nombre[i];
-									z++;
-									i++;
-								}
 
-							}
-							i--;
+							x = 1;
+							cout << "Ingrese su nombre por favor...";
+							Sleep(1800);
 						}
-					}
-					else {
-						alumno.nombre[i] = alumno.nombre[i];
+
 					}
 
 					i++;
 
 				}
-				if (z == 0) {
-					alumno.nombre[i] = ' ';
-					alumno.nombre[i + 1] = '.';
-					alumno.nombre[i + 2] = '\0';
-					z++;
+			} while (x != 0);
+			do {
+				system("cls");
+				cout << "Apellido Paterno: " << endl;
+
+				gets_s(contacto.apeP);
+				log = strlen(contacto.apeP);
+				x = 0, i = 0, auxi = 0;
+				while (contacto.apeP[i])
+				{
+
+					if (!isalpha(contacto.apeP[i]))
+					{
+
+
+						auxi = i;
+						i = log - 1;
+						x = 1;
+
+
+					}
+
+					i++;
+
+				}
+			} while (x != 0);
+			do {
+				system("cls");
+				cout << "Apellido Materno: " << endl;
+
+				gets_s(contacto.apeM);
+				log = strlen(contacto.apeM);
+				x = 0, i = 0, auxi = 0;
+				while (contacto.apeM[i])
+				{
+
+					if (!isalpha(contacto.apeM[i]))
+					{
+
+
+						auxi = i;
+						i = log - 1;
+						x = 1;
+
+
+					}
+
+					i++;
+
 				}
 			} while (x != 0);
 
 
 			do {
 				system("cls");
-				cout << "\nIngrese Numero: ";
+				cout << "Numero" << endl;
 				x = 0;
 				z = 0;
 
-				cin >> alumno.numeroC;
+				gets_s(contacto.numeroC);
 
-				while (alumno.numeroC[x])
+
+				while (contacto.numeroC[x])
 				{
-					if (!isdigit(alumno.numeroC[x]))
+					if (!isdigit(contacto.numeroC[x]))
 					{
 
 						z = 1;
-					}
-					else {
-						cout << "Solo numeros :)" << endl;
 					}
 					x++;
 				}
 				system("cls");
 
-				log = strlen(alumno.numeroC);
-				if (log < 8 || log > 11)
+				log = strlen(contacto.numeroC);
+				if (log < 8 || log > 12)
 				{
 					cout << "error longitud" << endl;
+					Sleep(1500);
 					z = z + 1;
-					Sleep(2000);
 				}
 
 			} while (z != 0);//validacion numero
+			do {
+				system("cls");
+				cout << "Matricula: " << endl;
+				x = 0;
+				z = 0;
 
+				gets_s(contacto.matricula);
+
+
+				while (contacto.matricula[x])
+				{
+					if (!isdigit(contacto.matricula[x]))
+					{
+
+						z = 1;
+					}
+					x++;
+				}
+				system("cls");
+
+				log = strlen(contacto.matricula);
+				if (log < 7 || log > 7)
+				{
+					cout << "Una matricula se compone de unicamente 7 numeros..." << endl;
+					z = z + 1;
+					system("pause");
+				}
+
+			} while (z != 0);
 			do
 			{
 				system("cls");
 				i = 0; y = 0;
-				cout << "\nIngrese Correo: ";
-				cin >> alumno.correo;
-				log = strlen(alumno.correo);
-				while (alumno.correo[i])
+				cout << "\n\nIngrese su Correo Electronico: ";
+				gets_s(contacto.correo);
+				log = strlen(contacto.correo);
+				while (contacto.correo[i])
 				{
-					if ((alumno.correo[i]) == ('@')) {
+					if ((contacto.correo[i]) == ('@')) {
 						y = 1;
 					}
 					i++;
@@ -540,21 +569,21 @@ void nuevoAlumno()
 				if (y != 0)
 				{
 					i = 0;
-					_strrev(alumno.correo);
+					_strrev(contacto.correo);
 
 
-					while (alumno.correo[i])
+					while (contacto.correo[i])
 					{
-						if ((alumno.correo[i]) == ('m'))
+						if ((contacto.correo[i]) == ('m'))
 						{
 							i++;
-							if ((alumno.correo[i]) == ('o'))
+							if ((contacto.correo[i]) == ('o'))
 							{
 								i++;
-								if ((alumno.correo[i]) == ('c'))
+								if ((contacto.correo[i]) == ('c'))
 								{
 									i++;
-									if ((alumno.correo[i]) == ('.'))
+									if ((contacto.correo[i]) == ('.'))
 									{
 										y = 3;
 									}
@@ -565,34 +594,180 @@ void nuevoAlumno()
 							i = log;
 						}
 						else {
-							cout << "Error, no olvides usar el '@' y el ''.com''";
+							cout << "Error, Debe contener '@' y ''.com''";
 							Sleep(2000);
 						}
 						i = log;
 
 					}
-					_strrev(alumno.correo);
+					_strrev(contacto.correo);
 				}
 				else {
 					cout << "Error, Debe contener '@' y ''.com''";
 					Sleep(2000);
 				}
 			} while (y != 3);
-			alumnos << alumno.nombre << " " << alumno.numeroC << " " << alumno.correo << endl;
-			cout << "\n\n desea ingresar otro alumno? ";
+
+			system("cls");
+			cout << "Direccion\n\nCalle: ";
+			getline(cin, contacto.calle);
+			cout << "\nNumero exterior: ";
+			cin >> contacto.numCasa;
+			getline(cin, contacto.colonia);
+			cout << "\nColonia: ";
+			getline(cin, contacto.colonia);
+
+			do {
+				system("cls");
+				cout << "Calificaciones\nCalificacion 1: ";
+
+				z = 0;
+
+				cin >> (contacto.cal1);
+
+
+				if (contacto.cal1 < 0 || contacto.cal1 > 100)
+				{
+					cout << "Solo valores de 0 a 100..." << endl;
+					Sleep(1800);
+					z = z + 1;
+				}
+
+
+			} while (z != 0);
+			do {
+				system("cls");
+				cout << "Calificacion 2: ";
+
+				z = 0;
+
+				cin >> (contacto.cal2);
+
+
+				if (contacto.cal2 < 0 || contacto.cal2 > 100)
+				{
+					cout << "Solo valores de 0 a 100..." << endl;
+					Sleep(1800);
+					z = z + 1;
+				}
+
+
+			} while (z != 0);
+			do {
+				system("cls");
+				cout << "Calificacion 3: ";
+
+				z = 0;
+
+				cin >> (contacto.cal3);
+
+
+				if (contacto.cal3 < 0 || contacto.cal3 > 100)
+				{
+					cout << "Solo valores de 0 a 100..." << endl;
+					Sleep(1800);
+					z = z + 1;
+				}
+
+
+			} while (z != 0);
+
+
+			alumnos << contacto.nombre << "  " << contacto.apeP << "  " << contacto.apeM << "  " << contacto.numeroC << "  " << contacto.correo << "  " << contacto.matricula << "  " << contacto.calle << " " << contacto.numCasa << " " << contacto.colonia << "." << contacto.cal1 << " " << contacto.cal2 << " " << contacto.cal3 << "\n\n";
+			cout << "\n\n desea ingresar otro contacto a la alumnos.? ";
 			cout << "\n\n 1=si, 2=no \n" << endl;
+			if (dec != 1)
+			{
+				cin >> dec;
+			}
 
-			cin >> dec;
-		} while (dec == 1);
-	}
-	else
-	{
-		cout << "Error al abrir el archivo";
-		system("pause");
+
+
+
+
+		} while (dec != 1);
+
 
 	}
+
 	alumnos.close();
 
 }
 
+void mostrarBusqueda()
+{
+	int i = 0;
+	int x = 1, vcolonia = 0;
+	string clave;
+	system("cls");
+	cout << "\n";
+	ifstream alumnos;
+	alumnos.open("alumnos.txt", ios::out | ios::in);
+	cout << "Contactos" << endl;
+	cout << "_______________________" << endl;
+	alumnos >> contacto.nombre;
+	while (!alumnos.eof())
+	{
+		x = 1;
+		cout << "Nombre: " << contacto.nombre;
+		alumnos >> contacto.nombre;
+		alumnos >> contacto.apeP;
+		alumnos >> contacto.apeM;
+		alumnos >> contacto.numeroC;
+		alumnos >> contacto.correo;
+		alumnos >> contacto.matricula;
 
+		cout << " " << contacto.nombre;
+		cout << " " << contacto.apeP << " " << contacto.apeM << endl;
+		cout << "Numero: " << contacto.numeroC << endl;
+		cout << "Correo: " << contacto.correo << endl;
+		cout << "Matricula: " << contacto.matricula << endl;
+		cout << "Dirreccion: ";
+		do
+		{
+			alumnos >> contacto.calle;
+			cout << contacto.calle << " ";
+			i = 0, vcolonia = 0;
+
+
+
+			while (contacto.calle[i])
+			{
+				if ((contacto.calle[i]) == ' ')
+				{
+
+
+				}
+				else
+				{
+					i++;
+
+				}
+
+				if ((contacto.calle[i]) == '.')
+				{
+					x = 0;
+				}
+
+				if (isdigit(contacto.calle[i]))
+				{
+					vcolonia = 1;
+				}
+			}
+			if (vcolonia != 0)
+			{
+				cout << ", Colonia ";
+			}
+
+		} while (x != 0);
+
+
+		alumnos >> contacto.nombre;
+		cout << "\n_______________________" << endl;
+	}
+
+
+	alumnos.close();
+	system("pause");
+
+}
