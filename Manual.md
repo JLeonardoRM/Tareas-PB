@@ -9,11 +9,11 @@
   * Cingo para cerrar el programa
   
 # Nuevo alumno
-  * Se empieza por los nombres y despues por los apellidos indicandote que ingresar
+  * Se empieza por la matricula seguido de los nombres y despues por los apellidos indicandote que ingresar
   * Si se ingresa un dato erroneo se te volvera a pedir en la pantalla hasta ingresar datos validos
   
 # Lista alumno
-  * Se mostrara de forma ordenada la lista de los alumnos con todos sus datos y su promedio final 
+  * Se mostrara de forma ordenada la lista de los alumnos con todos sus datos y su promedio final
 
 # Editar Alumno
   * Se desplazara la lista de alumno para que selecciones la matricula del que desees editar, la matricula sera la misma pero puedes editar      o escribir igual los otros campos.
