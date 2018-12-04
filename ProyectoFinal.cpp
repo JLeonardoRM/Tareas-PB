@@ -602,7 +602,7 @@ void eliminar()
 	char *cad;
 	int i = 0, z = 0, opcion = 0,y=0;
 	int x = 1, vcolonia = 0, NoApeM = 0;
-
+	int text=0;
 
 	ofstream aux;
 	ifstream alumnos;
@@ -636,7 +636,7 @@ void eliminar()
 		if(z==7)
 		{
 			
-			
+			text++;
 			alumnos >> contacto.nombre;
 
 			alumnos >> contacto.nombre;
@@ -682,6 +682,8 @@ void eliminar()
 			alumnos >> contacto.cal1;
 			alumnos >> contacto.cal2;
 			alumnos >> contacto.cal3;
+			
+
 			
 		}
 		else
@@ -756,10 +758,18 @@ void eliminar()
 	aux.close();
 	remove("alumnos.txt");
 	rename("AuxAlumnos.txt", "alumnos.txt");
-	system("cls");
-	cout << "Eliminado.\n" << endl;
-	system("pause");
-
+	if (text == 0)
+	{
+		system("cls");
+		cout << "No se encontro alumno con la matricula" << BuscarMat<<"\n\n"<<endl;
+		system("pause");
+	}
+	else 
+	{
+		system("cls");
+		cout << "Eliminado.\n" << endl;
+		system("pause");
+	}
 
 
 }
