@@ -636,33 +636,30 @@ void eliminar()
 		if(z==7)
 		{
 			
-			alumnos >> contacto.nombre;
 			
 			alumnos >> contacto.nombre;
-			
+
+			alumnos >> contacto.nombre;
+
 			alumnos >> contacto.apeP;
-			
+
 			alumnos >> contacto.apeM;
 			cad = contacto.apeM;
-			
+
 			if (isdigit(cad[0]))
 			{
 				NoApeM = 1;
 			}
 			else {
 				alumnos >> contacto.numeroC;
-				
+
 			}
 			alumnos >> contacto.correo;
 			
 			do
 			{
-				
+				i = 0;
 				alumnos >> contacto.calle;
-				i = 0, vcolonia = 0;
-
-
-
 				while (contacto.calle[i])
 				{
 					if ((contacto.calle[i]) == ' ')
@@ -685,7 +682,7 @@ void eliminar()
 			alumnos >> contacto.cal1;
 			alumnos >> contacto.cal2;
 			alumnos >> contacto.cal3;
-			i = 0;
+			
 		}
 		else
 		{
